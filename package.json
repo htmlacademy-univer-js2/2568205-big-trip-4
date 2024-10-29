@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src/",
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development --open"
+    "start": "set PORT=8085 && webpack serve --mode development --open"
   },
   "browserslist": [
     "last 2 versions",
