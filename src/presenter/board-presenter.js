@@ -4,26 +4,40 @@ import SortView from "../view/sorting-view"
 import MainHeaderView from "../view/main-header-view"
 import ListEventsView from "../view/list-events-view"
 import EditPointView from "../view/editing-view";
-import AddPointView from "../view/add-view";
 export default class BoardPresenter {
-    constructor({container}) {
-      this.sort = new SortView()
-      this.events = new ListEventsView()
-    this.container = container
-  }
-  init() {
-    render(this.sort, this.container)
-    render(this.events, this.container)
-    let eventsElement = this.events.getElement()
-    render(new EditPointView(), eventsElement)
-    render(new AddPointView(), eventsElement)
-    let eventsCount = 3
-    for (let i=0; i<eventsCount; i++)
-    {
-      console.log(i)
-      render(new RoutePointView(), eventsElement)
-    }
-
+  sortComponent = new SortView();
+  eventListComponent = new ListEventsView();
+  constructor({container, destinationsModel, offersModel, pointsModel}){
+    this.container = container;
+    this.destinationsModel = destinationsModel;
+    this.offersModel = offersModel;
+    this.pointsModel = pointsModel;
   }
 
+  init(){
+    render(this.sortComponent, this.container);
+    render(this.eventListComponent, this.container);
+    let firstPoint = this.pointsModel.getPoints()[0]
+    console.log(this.pointsModel.getPoints())
+    render (new EditPointView(
+       firstPoint,
+       this.destinationsModel.getById(firstPoint.destinationId),
+       this.offersModel.getOffers()
+
+    ),
+    this.eventListComponent.getElement()
+    );
+    this.pointsModel.getPoints().forEach((point) => {
+      console.log(point)
+      render(
+        new RoutePointView(
+          point,
+         this.destinationsModel.getById(point.destinationId),
+        this.offersModel.getOfferByType(point.type)
+        ),
+        this.eventListComponent.getElement()
+      );
+    });
+  }
 }
+
