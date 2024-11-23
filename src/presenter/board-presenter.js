@@ -1,4 +1,4 @@
-import { render } from "../render";
+import { render, replace } from "../framework/render";
 import RoutePointView from "../view/route-point-view"
 import SortView from "../view/sorting-view"
 import MainHeaderView from "../view/main-header-view"
@@ -17,27 +17,45 @@ export default class BoardPresenter {
   init(){
     render(this.sortComponent, this.container);
     render(this.eventListComponent, this.container);
-    let firstPoint = this.pointsModel.getPoints()[0]
-    console.log(this.pointsModel.getPoints())
-    render (new EditPointView(
-       firstPoint,
-       this.destinationsModel.getById(firstPoint.destinationId),
-       this.offersModel.getOffers()
-
-    ),
-    this.eventListComponent.getElement()
-    );
     this.pointsModel.getPoints().forEach((point) => {
-      console.log(point)
-      render(
-        new RoutePointView(
-          point,
-         this.destinationsModel.getById(point.destinationId),
-        this.offersModel.getOfferByType(point.type)
-        ),
-        this.eventListComponent.getElement()
-      );
+     this.#renderPoint(point)
     });
+  }
+  #renderPoint(point) {
+    const escKeyDownHandler = (evt) => {
+      if (evt.key === 'Escape') {
+        evt.preventDefault();
+        replaceFormToCard();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
+    };
+    const pointComponent = new RoutePointView(
+      point,
+     this.destinationsModel.getById(point.destinationId),
+    this.offersModel.getOfferByType(point.type),
+    () => {
+      replaceCardToForm()
+      document.addEventListener('keydown', escKeyDownHandler)
+    }
+
+    )
+    const editForm = new EditPointView(
+         point,
+         this.destinationsModel.getById(point.destinationId),
+         this.offersModel.getOffers(), ()=>{
+          replaceFormToCard()
+         } )
+    console.log(point)
+    render(
+      pointComponent,
+      this.eventListComponent.element
+    );
+    function replaceCardToForm() {
+      replace(editForm, pointComponent)
+    }
+    function replaceFormToCard() {
+      replace(pointComponent, editForm)
+    }
   }
 }
 
