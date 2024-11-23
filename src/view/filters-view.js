@@ -1,3 +1,5 @@
+import AbstractView from "../framework/view/abstract-view";
+
 const { createElement } = require("../render");
 
 function createFilterElement() {
@@ -30,18 +32,12 @@ function createFilterElement() {
             </div>`
   )
 }
-  export default class FilterView {
-    getTemplate() {
+  export default class FilterView extends AbstractView {
+    constructor() {
+      super()
+    }
+    get template() {
       return createFilterElement()
     }
-    getElement() {
-      if (!this.element){
-        this.element = createElement(this.getTemplate())
-      }
-      return this.element
 
-    }
-    removeElement() {
-      this.element = null
-    }
   }

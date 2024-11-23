@@ -1,3 +1,4 @@
+import AbstractView from "../framework/view/abstract-view";
 import { createElement, render } from "../render";
 function createHeaderElement() {
   return (`<div class="trip-main">
@@ -11,17 +12,11 @@ function createHeaderElement() {
     </p>
   </section>`)
 }
-export default class MainHeaderView {
-  getTemplate() {
+export default class MainHeaderView extends AbstractView {
+  constructor() {
+    super()
+  }
+  get template() {
     return createHeaderElement();
-  }
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate())
-    }
-    return this.element
-  }
-  removeElement() {
-    this.element = null
   }
 }
