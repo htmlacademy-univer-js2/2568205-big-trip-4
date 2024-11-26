@@ -27,3 +27,6 @@ export function toMonthDate(dateTime){
 export function toTime(dateTime){
   return dayjs(dateTime).format('HH:mm');
 }
+export function updateItem(items, update) {
+  return items.map((item) => item.id === update.id ? update : item);
+}
