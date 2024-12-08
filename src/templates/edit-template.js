@@ -1,8 +1,9 @@
 import { CITIES, TYPES } from "../mocks/consts";
 export function createEditTemplate(point, destination, offers) {
+  console.log(point)
   const { type} = point;
   console.log('Данные формы')
-  //console.log(point)
+
   //console.log(destination)
   console.log(offers)
 
@@ -30,7 +31,7 @@ export function createEditTemplate(point, destination, offers) {
                     <label class="event__label  event__type-output" for="event-destination-1">
                       ${type}
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination.name}" list="destination-list-1">
+                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value=${destination.name} list="destination-list-1">
                     ${createDestinationListTemplate()}
                   </div>
 
@@ -61,7 +62,7 @@ export function createEditTemplate(point, destination, offers) {
                     <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
                     <div class="event__available-offers">
-                      ${createPointOffer(offers)}
+                      ${createPointOffer(offers, type)}
                     </div>
                   </section>
 
@@ -94,16 +95,16 @@ function createPointTypesListElement(currentType) {
 function createDestinationListTemplate()
 {
   return `<datalist id="destination-list-1">
-                     ${CITIES.map((city)=>`<option value="${city}"</option>`)}
+                     ${CITIES.map((city)=>`<option value="${city}">`).join('')}
                     </datalist>`
 }
-function createPointOffer(offers)
+function createPointOffer(offers, type)
 {
   let result=''
   offers.forEach((offer, index) => {
     result+=`<div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${index+1}" type="checkbox" name="event-offer-luggage" checked>
-                        <label class="event__offer-label" for="event-offer-luggage-${index+1}">
+                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-${type}-${index+1}" type="checkbox" name="event-offer-luggage" checked>
+                        <label class="event__offer-label" for="event-offer-${type}-${index+1}">
                           <span class="event__offer-title">${offer.title}</span>
                           &plus;&euro;&nbsp;
                           <span class="event__offer-price">${offer.price}</span>

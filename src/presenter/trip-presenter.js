@@ -24,6 +24,7 @@ export default class TripPresenter {
     render(this.eventListComponent, this.container);
     this.points.forEach((point) => {
      const presenter = new PointPresenter(this.destinationsModel.getById(point.destinationId),
+     this.destinationsModel.all,
      this.offersModel.getOfferByType(point.type), this.eventListComponent, this.#handlePointChange, this.#handleModeChange)
      this.pointPresenters.set(point.id, presenter)
      presenter.init(point)
@@ -32,6 +33,7 @@ export default class TripPresenter {
   #handlePointChange = (updatedPoint) => {
     //console.log('изменено')
    this.points = updateItem(this.points, updatedPoint)
+  console.log(updatedPoint.id)
     this.pointPresenters.get(updatedPoint.id).init(updatedPoint)
   }
   #handleModeChange = () => {

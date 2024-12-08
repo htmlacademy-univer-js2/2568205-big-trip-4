@@ -6,6 +6,7 @@ const CITIES = [
   'Saint Petersburg',
   'Copenhagen'
 ];
+const CITIES_COUNT = 6
 
 const DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -46,8 +47,8 @@ const POINT_OFFERS = [
   'Order Uber',
 ];
 
-const POINTS_COUNT = 5;
-const DESTINATIONS_COUNT = 5;
-const OFFERS_COUNT = 5;
+const POINTS_COUNT = 10;
+const DESTINATIONS_COUNT = 10;
+const OFFERS_COUNT = 10;
 
-export{CITIES, DESCRIPTIONS, PRICE, DURATION, TYPES, POINTS_COUNT, POINT_OFFERS, DESTINATIONS_COUNT, OFFERS_COUNT};
+export{CITIES, DESCRIPTIONS, PRICE, DURATION, TYPES, POINTS_COUNT, POINT_OFFERS, DESTINATIONS_COUNT, OFFERS_COUNT, CITIES_COUNT};

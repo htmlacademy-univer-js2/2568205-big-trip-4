@@ -1,11 +1,11 @@
 import { DESTINATIONS_COUNT } from "../mocks/consts"
-import { generateDestination } from "../mocks/destination"
+import { generateDestinations } from "../mocks/destination"
 
 export class DestinationModel {
   constructor() {
-    this.destinations = Array.from({length: DESTINATIONS_COUNT}, generateDestination)
+    this.destinations = generateDestinations()
   }
-getDestination() {
+get all() {
   return this.destinations
 }
   getById(id)
