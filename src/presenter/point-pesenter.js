@@ -11,8 +11,9 @@ export default class PointPresenter {
   point = null
   pointComponent = null
   editComponent = null
-  constructor(destination, offer, container, handleDataChange, handleModeChange) {
+  constructor(destination, destinations, offer, container, handleDataChange, handleModeChange) {
     this.destination = destination;
+    this.destinations = destinations;
     this.offer = offer;
     this.container = container;
     this.#handleDataChange = handleDataChange;
@@ -26,6 +27,7 @@ export default class PointPresenter {
 
 
   #renderPoint() {
+    console.log(this.point)
     const prevPointComponent = this.pointComponent;
     const prevPointEditComponent = this.editComponent;
     const escKeyDownHandler = (evt) => {
@@ -37,7 +39,7 @@ export default class PointPresenter {
     };
     this.pointComponent = new RoutePointView(
       this.point,
-      this.destination,
+      this.destinations.find(destination=>destination.id==this.point.destinationId),
       this.offer,
       () => {
         this.replaceCardToForm()
@@ -49,18 +51,20 @@ export default class PointPresenter {
     this.editComponent = new EditPointView(
       this.point,
       this.destination,
+      this.destinations,
       this.offer,
-      this.#handleFormSubmit
+      this.#handleFormSubmit,
+     this.#handleFormClose
     )
     //console.log(point)
 
-    if (prevPointComponent === null || prevPointEditComponent === null) {
+   if (prevPointComponent === null || prevPointEditComponent === null) {
       render(
         this.pointComponent,
         this.container.element
       );
       return
-    }
+   }
     if (this.mode === Mode.DEFAULT) {
       replace(this.pointComponent, prevPointComponent);
     }
@@ -93,6 +97,11 @@ export default class PointPresenter {
     console.log('Измененные данные')
     console.log(point)
     this.#handleDataChange(point)
+    this.replaceFormToCard()
+  }
+  #handleFormClose = (evt) =>
+  {
+    //evt.preventDefault()
     this.replaceFormToCard()
   }
 

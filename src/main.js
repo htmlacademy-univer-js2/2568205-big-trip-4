@@ -13,7 +13,7 @@ let mainTrip = header.querySelector(".trip-main")
 console.log(filter)
 let events = body.querySelector(".trip-events")
 let destinationModel = new DestinationModel()
-let destinations = destinationModel.getDestination()
+let destinations = destinationModel.all
 //console.log(destinations)
 let offersModel = new OfferModel()
 let offers = offersModel.getOffers()
