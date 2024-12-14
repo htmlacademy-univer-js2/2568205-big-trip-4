@@ -30,3 +30,31 @@ export function toTime(dateTime){
 export function updateItem(items, update) {
   return items.map((item) => item.id === update.id ? update : item);
 }
+export const FILTER_TYPE = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PRESENT: 'present',
+  PAST: 'past',
+};
+
+export const SORTING_TYPES = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFERS: 'offers'
+};
+export const filters = {
+  [FILTER_TYPE.EVERYTHING]: (points) => points.filter((point) => point),
+  [FILTER_TYPE.FUTURE]: (points) => points.filter((point) => point),
+  [FILTER_TYPE.PRESENT]: (points) => points.filter((point) => point),
+  [FILTER_TYPE.PAST]: (points) => points.filter((point) => point),
+};
+
+export const sorts = {
+  [SORTING_TYPES.DAY]: (points) => points.filter((point) => point),
+  [SORTING_TYPES.EVENT]: (points) => points.filter((point) => point),
+  [SORTING_TYPES.TIME]: (points) => points.filter((point) => point),
+  [SORTING_TYPES.PRICE]: (points) => points.filter((point) => point),
+  [SORTING_TYPES.OFFERS]: (points) => points.filter((point) => point),
+}

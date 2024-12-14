@@ -6,8 +6,9 @@ import ListEventsView from "../view/list-events-view"
 import EditPointView from "../view/editing-view";
 import PointPresenter from "./point-pesenter";
 import { updateItem } from "../utils";
+import { getMockSorts } from "../mocks/sort";
 export default class TripPresenter {
-  sortComponent = new SortView();
+
   eventListComponent = new ListEventsView();
   points = []
   pointPresenters = new Map()
@@ -20,7 +21,8 @@ export default class TripPresenter {
   }
 
   init(){
-    render(this.sortComponent, this.container);
+    const sortComponent = new SortView(getMockSorts());
+    render(sortComponent, this.container);
     render(this.eventListComponent, this.container);
     this.points.forEach((point) => {
      const presenter = new PointPresenter(this.destinationsModel.getById(point.destinationId),
