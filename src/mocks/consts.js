@@ -47,6 +47,7 @@ const POINT_OFFERS = [
   'Order Uber',
 ];
 
+
 const POINTS_COUNT = 10;
 const DESTINATIONS_COUNT = 10;
 const OFFERS_COUNT = 10;
