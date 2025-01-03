@@ -1,6 +1,7 @@
 import RoutePointView from "../view/route-point-view";
 import EditPointView from "../view/editing-view";
-import { render, replace } from "../framework/render";
+import { render, replace, remove } from "../framework/render";
+import { UpdateType, UserAction } from "../utils";
 const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING'
@@ -54,7 +55,8 @@ export default class PointPresenter {
       this.destinations,
       this.offer,
       this.#handleFormSubmit,
-     this.#handleFormClose
+     this.#handleFormClose,
+     this.#handleDelete
     )
     //console.log(point)
 
@@ -89,14 +91,18 @@ export default class PointPresenter {
       this.replaceFormToCard();
   }
 }
+destroy() {
+  remove(this.pointComponent);
+  remove(this.editComponent);
+}
   #handleFavoriteClick = () => {
-    this.#handleDataChange({ ...this.point, isFavorite: !this.point.isFavorite });
+    this.#handleDataChange(UserAction.UPDATE_POINT, UpdateType.MINOR, { ...this.point, isFavorite: !this.point.isFavorite });
   }
   #handleFormSubmit = (point) =>
   {
     console.log('Измененные данные')
     console.log(point)
-    this.#handleDataChange(point)
+    this.#handleDataChange(UserAction.UPDATE_POINT, UpdateType.MINOR, point)
     this.replaceFormToCard()
   }
   #handleFormClose = (evt) =>
@@ -104,5 +110,11 @@ export default class PointPresenter {
     //evt.preventDefault()
     this.replaceFormToCard()
   }
-
+  #handleDelete = (point) =>
+    {
+      console.log('Измененные данные')
+      console.log(point)
+      this.#handleDataChange(UserAction.DELETE_POINT, UpdateType.MINOR, point)
+      this.replaceFormToCard()
+    }
 }

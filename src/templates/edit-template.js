@@ -1,6 +1,7 @@
 import { CITIES, TYPES } from "../mocks/consts";
 export function createEditTemplate(point, destination, offers) {
   console.log(point)
+  console.log(destination==undefined)
   const { type} = point;
   console.log('Данные формы')
 
@@ -31,7 +32,7 @@ export function createEditTemplate(point, destination, offers) {
                     <label class="event__label  event__type-output" for="event-destination-1">
                       ${type}
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value=${destination.name} list="destination-list-1">
+                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination==undefined? '': destination.name}" list="destination-list-1">
                     ${createDestinationListTemplate()}
                   </div>
 
@@ -67,9 +68,9 @@ export function createEditTemplate(point, destination, offers) {
                   </section>
 
                   <section class="event__section  event__section--destination">
-                    <h3 class="event__section-title  event__section-title--destination">${destination.name}</h3>
-                    <p class="event__destination-description">${destination.description}</p>
-                    ${createPictures(destination.pictures)}
+                    <h3 class="event__section-title  event__section-title--destination">${destination==undefined?'':destination.name}</h3>
+                    <p class="event__destination-description">${destination==undefined?'':destination.description}</p>
+                    ${destination==undefined?'': createPictures(destination.pictures)}
                   </section>
                 </section>
               </form>

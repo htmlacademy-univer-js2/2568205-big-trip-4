@@ -18,21 +18,30 @@ function createFilterElement(filters) {
 }
 function createFilterItemTemplate(filter, isChecked)
 {
-  const {name} = filter
+  const {type} = filter
   return (` <div class="trip-filters__filter">
-                  <input id="filter-${name}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${name}" ${isChecked? 'checked':''}>
-                  <label class="trip-filters__filter-label" for="filter-${name}">${name}</label>
+                  <input id="filter-${type}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${type}" ${isChecked? 'checked':''}>
+                  <label class="trip-filters__filter-label" for="filter-${type}">${type}</label>
                 </div>`)
 }
   export default class FilterView extends AbstractView {
    #filters
-    constructor(filters) {
+   #handleFilterTypeChange = null
+    constructor(filters, currentFilterType, onFilterTypeChange) {
       super()
       this.#filters = filters
+      this.#handleFilterTypeChange = onFilterTypeChange
+      this.element.addEventListener('change', this.#filterTypeChangeHandler)
 
     }
     get template() {
       return createFilterElement(this.#filters)
     }
+
+    #filterTypeChangeHandler = (evt) => {
+      evt.preventDefault();
+      console.log(this.#handleFilterTypeChange)
+      this.#handleFilterTypeChange(evt.target.value);
+    };
 
   }
