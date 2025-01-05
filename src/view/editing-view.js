@@ -6,11 +6,12 @@ import { CITIES } from "../mocks/consts.js"
 export default class EditPointView extends AbstractStatefullView {
   #onFormSubmitHandler = null
   #onFormCloseHandler = null
+  #onDeletePointHandler = null
   #point = null
   #destination = null
   #destinations = null
   #offers = null
-  constructor(point, destination, destinations, offers, onFormSubmit, onFormClose) {
+  constructor(point, destination, destinations, offers, onFormSubmit, onFormClose, onDelete) {
     super()
     this._setState(EditPointView.parsePointToState({point}))
     this.#destination = destination
@@ -18,6 +19,7 @@ export default class EditPointView extends AbstractStatefullView {
     this.#offers = offers
     this.#onFormSubmitHandler = onFormSubmit
     this.#onFormCloseHandler = onFormClose
+    this.#onDeletePointHandler = onDelete
     this._restoreHandlers()
 
   }
@@ -32,6 +34,7 @@ export default class EditPointView extends AbstractStatefullView {
     this.element.querySelector('.event__type-group').addEventListener('change', this.#changeEventTypeHandler)
     this.element.querySelector('.event__input--destination').addEventListener('change', this.#changeDestinationHandler)
     this.element.querySelector('.event__input--price').addEventListener('change', this.#changePriceHandler)
+    this.element.querySelector('.event--edit').addEventListener('reset', this.#editDeleteHandler);
   }
   #changeEventTypeHandler = (evt) => {
     console.log(this._state)
@@ -65,5 +68,10 @@ export default class EditPointView extends AbstractStatefullView {
     this.updateElement({point:{...this._state.point, basePrice: this._state.basePrice}}                    )
 
   }
+  #editDeleteHandler = (evt) => {
+    evt.preventDefault()
+    this.#onDeletePointHandler(EditPointView.parseStateToPoint(this._state))
+  }
    static parsePointToState = (point) => (point)
+   static parseStateToPoint = (state) => (state)
 }
