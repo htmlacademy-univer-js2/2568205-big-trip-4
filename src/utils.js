@@ -64,6 +64,7 @@ export const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
+  INIT: 'INIT'
 };
 export const filters = {
   [FILTER_TYPE.EVERYTHING]: (points) => points.filter((point) => point),

@@ -24,6 +24,7 @@ export default class TripPresenter {
   #sortComponent = null
   #newPointPresenter
   constructor({container, destinationsModel, offersModel, pointsModel, filtersModel, onNewPointDestroy}){
+
     this.container = container;
     this.#destinationsModel = destinationsModel;
     this.#offersModel = offersModel;
@@ -39,6 +40,8 @@ export default class TripPresenter {
 
     this.#pointsModel.addObserver(this.#handleModelPoint)
     this.#filtersModel.addObserver(this.#handleModelPoint)
+    this.#destinationsModel.addObserver(this.#handleModelPoint)
+    this.#offersModel.addObserver(this.#handleModelPoint)
 
   }
   get points() {
@@ -114,6 +117,9 @@ export default class TripPresenter {
         this.#clearTrip({ resetSortType: true });
         this.init();
         break;
+        case UpdateType.INIT:
+          this.init();
+          break;
     }
   };
   createPoint() {
@@ -122,6 +128,7 @@ export default class TripPresenter {
     this.#newPointPresenter.init();
   }
   init(){
+
     this.#renderSortView()
     render(this.eventListComponent, this.container);
     console.log(this.points)

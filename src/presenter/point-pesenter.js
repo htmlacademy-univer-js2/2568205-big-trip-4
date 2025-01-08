@@ -16,6 +16,7 @@ export default class PointPresenter {
     this.destination = destination;
     this.destinations = destinations;
     this.offer = offer;
+    console.log(this.offer)
     this.container = container;
     this.#handleDataChange = handleDataChange;
     this.#handleModeChange = handleModeChange;
