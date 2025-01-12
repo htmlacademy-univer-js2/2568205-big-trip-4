@@ -11,7 +11,7 @@ async updatePoint(point) {
     body: JSON.stringify(this.#adoptToServer(point)),
     headers: new Headers({'Content-Type': 'application/json'}),
   });
-
+console.log(response)
   const parsedResponse = await ApiService.parseResponse(response);
 
   return parsedResponse;
@@ -46,7 +46,8 @@ async deletePoint(point) {
 #adoptToServer(point) {
   const adaptedPoint = {
     ...point,
-    base_price: point['basePrice'],
+    destination: point['destinationId'],
+    base_price: Number(point['basePrice']),
       date_from: point['dateFrom'],
       date_to: point['dateTo'],
       is_favorite: point['isFavorite'],
@@ -57,7 +58,7 @@ async deletePoint(point) {
   delete adaptedPoint['dateTo'];
   delete adaptedPoint['isFavorite'];
   delete adaptedPoint['offerIds']
-
+  delete adaptedPoint['destinationId']
   return adaptedPoint
 }
 }

@@ -53,8 +53,8 @@ export class PointModel extends Observable {
 
 
       try {
-        const response = await this.pointsApiService.updatePoint(update);
-        const updatedPoint = this.#adaptToClient(response);
+        const response = await this.pointService.updatePoint(update);
+        const updatedPoint = await this.#adaptToClient(response);
         this.#points = [
           ...this.#points.slice(0, index),
           updatedPoint,
@@ -62,6 +62,8 @@ export class PointModel extends Observable {
         ];
         this._notify(updateType, updatedPoint);
       } catch(err) {
+        console.log(err)
+        console.log(response)
         throw new Error('Can\'t update point');
       }
 
@@ -71,7 +73,7 @@ export class PointModel extends Observable {
     deletePoint(updateType, update) {
       const index = this.#points.findIndex((point) => point.id === update.id);
       console.log(this.#points)
-      com
+      console.log(update.id)
       if (index === -1) {
         throw new Error('The point doesn\'t exist!');
       }
@@ -81,7 +83,7 @@ export class PointModel extends Observable {
         ...this.#points.slice(index + 1),
       ];
 
-      this._notify(UPDATE_TYPE.MINOR, update);
+      this._notify(UpdateType.MINOR, update);
     }
     #adaptToClient = (point) => {
       const adaptedPoint = {...point,

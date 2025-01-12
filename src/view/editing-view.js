@@ -11,6 +11,7 @@ export default class EditPointView extends AbstractStatefullView {
   #destination = null
   #destinations = null
   #offers = null
+  #datepicker = null
   constructor(point, destination, destinations, offers, onFormSubmit, onFormClose, onDelete) {
     super()
     this._setState(EditPointView.parsePointToState({point}))
@@ -26,7 +27,7 @@ export default class EditPointView extends AbstractStatefullView {
 
   get template() {
     console.log(this._state)
-    return createEditTemplate(this._state.point, this.#destinations.find(destination=>destination.id==this._state.point.destinationId), this.#offers)
+    return createEditTemplate(this._state.point, this.#destinations.find(destination=>destination.id==this._state.point.destinationId), this.#destinations, this.#offers)
   }
   _restoreHandlers() {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#clickCloseHandle)
@@ -40,7 +41,7 @@ export default class EditPointView extends AbstractStatefullView {
     console.log(this._state)
     this.updateElement({point: {...this._state.point,
       type: evt.target.value,
-      offers: []
+      offerIds: []
     }})
   }
   #clickSubmitHandle = (evt) =>
@@ -70,7 +71,7 @@ export default class EditPointView extends AbstractStatefullView {
   }
   #editDeleteHandler = (evt) => {
     evt.preventDefault()
-    this.#onDeletePointHandler(EditPointView.parseStateToPoint(this._state))
+    this.#onDeletePointHandler(this._state.point)
   }
    static parsePointToState = (point) => (point)
    static parseStateToPoint = (state) => (state)
