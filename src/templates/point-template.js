@@ -40,14 +40,14 @@ export function createRoutePoint(point, destination, offers) {
   }
 function createOffers(pointOffers) {
   let offers = '';
-  console.log(typeof(pointOffers))
-  pointOffers.forEach(offer => {
+  console.log(pointOffers)
+  pointOffers.map(offer=>offer['offers'].forEach(offer => {
     offers += `<li class="event__offer">
   <span class="event__offer-title">${offer.title}</span>
   +€&nbsp;
   <span class="event__offer-price">${offer.price}</span>
 </li>`;
-  });
+  }));
 
   return offers;
 }

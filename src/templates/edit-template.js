@@ -1,7 +1,9 @@
 import { CITIES, TYPES } from "../mocks/consts";
 export function createEditTemplate(point, destination, offers) {
   console.log(point)
+  console.log(destination)
   console.log(destination==undefined)
+  console.log(destination.pictures)
   const { type} = point;
   console.log('Данные формы')
 
@@ -79,6 +81,7 @@ export function createEditTemplate(point, destination, offers) {
   )
 }
 function createPictures(pictures) {
+  console.log(pictures)
   return `
     <div class="event__photos-container">
       <div class="event__photos-tape">
@@ -101,16 +104,22 @@ function createDestinationListTemplate()
 }
 function createPointOffer(offers, type)
 {
+  console.log(offers)
+
   let result=''
-  offers.forEach((offer, index) => {
+  offers.map(offer=>offer['offers'].forEach((offer, index) => {
+    let price = offer.price
+    let title = offer.title
+    console.log(price)
+    console.log(title)
     result+=`<div class="event__offer-selector">
                         <input class="event__offer-checkbox  visually-hidden" id="event-offer-${type}-${index+1}" type="checkbox" name="event-offer-luggage" checked>
                         <label class="event__offer-label" for="event-offer-${type}-${index+1}">
-                          <span class="event__offer-title">${offer.title}</span>
+                          <span class="event__offer-title">${title}</span>
                           &plus;&euro;&nbsp;
-                          <span class="event__offer-price">${offer.price}</span>
+                          <span class="event__offer-price">${price}</span>
                         </label>
                       </div>`
-  });
+  }));
   return result
 }

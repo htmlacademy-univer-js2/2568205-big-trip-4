@@ -2,6 +2,9 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin')
 module.exports = {
+  experiments: {
+    topLevelAwait: true
+  },
   entry: './src/main.js',
   output: {
     filename: 'bundle[contenthash].js',
