@@ -1,9 +1,9 @@
 import { CITIES, TYPES } from "../mocks/consts";
-export function createEditTemplate(point, destination, offers) {
+export function createEditTemplate(point, destination, destinations, offers) {
   console.log(point)
   console.log(destination)
   console.log(destination==undefined)
-  console.log(destination.pictures)
+  //console.log(destination.pictures)
   const { type} = point;
   console.log('Данные формы')
 
@@ -35,7 +35,7 @@ export function createEditTemplate(point, destination, offers) {
                       ${type}
                     </label>
                     <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination==undefined? '': destination.name}" list="destination-list-1">
-                    ${createDestinationListTemplate()}
+                    ${createDestinationListTemplate(destinations)}
                   </div>
 
                   <div class="event__field-group  event__field-group--time">
@@ -96,10 +96,10 @@ function createPointTypesListElement(currentType) {
       <label class="event__type-label  event__type-label--${type}" for="event-type-${type}-1">${type}</label>
     </div>`).join('');
 }
-function createDestinationListTemplate()
+function createDestinationListTemplate(destinations)
 {
   return `<datalist id="destination-list-1">
-                     ${CITIES.map((city)=>`<option value="${city}">`).join('')}
+                     ${destinations.map((destination)=>`<option value="${destination.name}">`).join('')}
                     </datalist>`
 }
 function createPointOffer(offers, type)
